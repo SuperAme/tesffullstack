@@ -1,0 +1,69 @@
+//
+//  PersonListView.swift
+//  frontend_meneses
+//
+//  Created by Américo MQ on 27/02/26.
+//
+
+import SwiftUI
+
+struct PersonListView: View {
+    @StateObject private var viewModel = PersonViewModel()
+    @State private var showForm = false
+    @State private var selectedPerson: Person?
+
+    var body: some View {
+        NavigationStack {
+
+            List {
+                ForEach(viewModel.persons) { person in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("\(person.nombre) \(person.apellido)")
+                                .font(.headline)
+                            Text(person.puesto)
+                        }
+
+                        Spacer()
+
+                        Button("Editar") {
+                            selectedPerson = person
+                            showForm = true
+                        }
+                        .buttonStyle(.bordered)
+
+                        Button("Borrar") {
+                            if let id = person.id {
+                                Task {
+                                    try? await viewModel.service.delete(id: id)
+                                    await viewModel.load()
+                                }
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                }
+            }
+            .navigationTitle("Personas")
+            .toolbar {
+                Button("Crear") {
+                    selectedPerson = nil
+                    showForm = true
+                }
+            }
+            .task {
+                await viewModel.load()
+            }
+            .sheet(isPresented: $showForm, onDismiss: {
+                Task {
+                    await viewModel.load()
+                }
+            }) {
+                PersonFormView(person: selectedPerson)
+            }
+        }
+    }
+}
+#Preview {
+    PersonListView()
+}
