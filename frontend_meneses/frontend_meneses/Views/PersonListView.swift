@@ -16,12 +16,12 @@ struct PersonListView: View {
         NavigationStack {
 
             List {
-                ForEach(viewModel.persons) { person in
+                ForEach(viewModel.persons, id: \.id) { person in
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("\(person.nombre) \(person.apellido)")
+                            Text("\(person.firstName) \(person.lastName)")
                                 .font(.headline)
-                            Text(person.puesto)
+                            Text(person.position)
                         }
 
                         Spacer()
@@ -33,11 +33,9 @@ struct PersonListView: View {
                         .buttonStyle(.bordered)
 
                         Button("Borrar") {
-                            if let id = person.id {
-                                Task {
-                                    try? await viewModel.service.delete(id: id)
-                                    await viewModel.load()
-                                }
+                            Task {
+                                try? await viewModel.service.delete(id: person.id!)
+                                await viewModel.load()
                             }
                         }
                         .buttonStyle(.borderedProminent)

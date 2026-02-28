@@ -13,24 +13,24 @@ struct PersonFormView: View {
 
     @State var person: Person?
 
-    @State private var nombre = ""
-    @State private var apellido = ""
-    @State private var fechaNacimiento = Date()
-    @State private var puesto = ""
-    @State private var sueldo = ""
+    @State private var firstName = ""
+    @State private var lastName = ""
+    @State private var birthDate = Date()
+    @State private var position = ""
+    @State private var salary = ""
 
     private let service = NetworkManager()
 
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Nombre", text: $nombre)
-                TextField("Apellido", text: $apellido)
+                TextField("Nombre", text: $firstName)
+                TextField("Apellido", text: $lastName)
                 DatePicker("Fecha Nacimiento",
-                           selection: $fechaNacimiento,
+                           selection: $birthDate,
                            displayedComponents: .date)
-                TextField("Puesto", text: $puesto)
-                TextField("Sueldo", text: $sueldo)
+                TextField("Puesto", text: $position)
+                TextField("Sueldo", text: $salary)
                     .keyboardType(.decimalPad)
             }
             .navigationTitle(person == nil ? "Crear Persona" : "Editar Persona")
@@ -51,16 +51,16 @@ struct PersonFormView: View {
             }
             .onAppear {
                 if let person = person {
-                    nombre = person.nombre
-                    apellido = person.apellido
+                    firstName = person.firstName
+                    lastName = person.lastName
                     let formatter = DateFormatter()
                     formatter.dateFormat = "yyyy-MM-dd"
                     formatter.locale = Locale(identifier: "en_US_POSIX")
-                    if let date = formatter.date(from: person.fechaNacimiento) {
-                        fechaNacimiento = date
+                    if let date = formatter.date(from: person.birthDate) {
+                        birthDate = date
                     }
-                    puesto = person.puesto
-                    sueldo = String(person.sueldo)
+                    position = person.position
+                    salary = String(person.salary)
                 }
             }
         }
@@ -71,15 +71,15 @@ struct PersonFormView: View {
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.locale = Locale(identifier: "en_US_POSIX")
 
-        let fechaString = formatter.string(from: fechaNacimiento)
+        let fechaString = formatter.string(from: birthDate)
 
         let newPerson = Person(
             id: person?.id,
-            nombre: nombre,
-            apellido: apellido,
-            fechaNacimiento: fechaString,
-            puesto: puesto,
-            sueldo: Double(sueldo) ?? 0
+            firstName: firstName,
+            lastName: lastName,
+            birthDate: fechaString,
+            position: position,
+            salary: Double(salary) ?? 0
         )
 
         try? await service.save(person: newPerson)

@@ -24,9 +24,7 @@ class PersonViewModel: ObservableObject {
 
     func delete(at offsets: IndexSet) async {
         for index in offsets {
-            if let id = persons[index].id {
-                try? await service.delete(id: id)
-            }
+            try? await service.delete(id: persons[index].id!)
         }
         await load()
     }

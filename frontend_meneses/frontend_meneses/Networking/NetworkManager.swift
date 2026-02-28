@@ -30,9 +30,13 @@ class NetworkManager {
 
     func save(person: Person) async throws {
 
-        let url = URL(string: person.id == nil
-                      ? baseURL
-                      : "\(baseURL)/\(person.id!)")!
+        let url: URL
+
+        if let id = person.id {
+            url = URL(string: "\(baseURL)/\(id)")!
+        } else {
+            url = URL(string: baseURL)!
+        }
 
         var request = URLRequest(url: url)
         request.httpMethod = person.id == nil ? "POST" : "PUT"

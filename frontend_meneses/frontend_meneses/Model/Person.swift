@@ -9,9 +9,18 @@ import Foundation
 
 struct Person: Identifiable, Codable {
     var id: Int?
-    var nombre: String
-    var apellido: String
-    var fechaNacimiento: String
-    var puesto: String
-    var sueldo: Double
+    var firstName: String
+    var lastName: String
+    var birthDate: String
+    var position: String
+    var salary: Double
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case firstName = "nombre"
+        case lastName = "apellido"
+        case birthDate = "fechaNacimiento"
+        case position = "puesto"
+        case salary = "sueldo"
+    }
 }
