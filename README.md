@@ -46,6 +46,33 @@ Antes de ejecutar el proyecto, es necesario tener instalado:
 - MySQL Workbench (opcional)
 - Postman (opcional para pruebas)
 
+---
+
+## Evidencias de Funcionamiento
+
+A continuación se detallan las pruebas realizadas para validar el funcionamiento del CRUD y la persistencia en la base de datos.
+
+### Pruebas de Endpoints (Postman)
+
+* **Crear registro (POST):**
+    ![Evidencia Create](./Evidencias/create)
+
+* **Lectura de datos (GET):**
+    ![Evidencia Read](./Evidencias/read)
+
+* **Actualización de datos (PUT):**
+    ![Evidencia Put](./Evidencias/put)
+
+* **Eliminación de datos (DELETE):**
+    ![Evidencia Delete](./Evidencias/delete)
+
+### Persistencia en Base de Datos
+
+* **Estado de la tabla en MySQL:**
+    ![Evidencia BD](./Evidencias/bd)
+
+---
+
 Verificar instalación:
 
 ```bash
