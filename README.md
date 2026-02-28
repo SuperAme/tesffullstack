@@ -55,21 +55,21 @@ A continuación se detallan las pruebas realizadas para validar el funcionamient
 ### Pruebas de Endpoints (Postman)
 
 * **Crear registro (POST):**
-    ![Evidencia Create](./Evidencias/create)
+    ![Evidencia Create](./Evidencias/create.png)
 
 * **Lectura de datos (GET):**
-    ![Evidencia Read](./Evidencias/read)
+    ![Evidencia Read](./Evidencias/read.png)
 
 * **Actualización de datos (PUT):**
-    ![Evidencia Put](./Evidencias/put)
+    ![Evidencia Put](./Evidencias/put.png)
 
 * **Eliminación de datos (DELETE):**
-    ![Evidencia Delete](./Evidencias/delete)
+    ![Evidencia Delete](./Evidencias/delete.png)
 
 ### Persistencia en Base de Datos
 
 * **Estado de la tabla en MySQL:**
-    ![Evidencia BD](./Evidencias/bd)
+    ![Evidencia BD](./Evidencias/bd.png)
 
 ---
 
